@@ -92,15 +92,6 @@ def comorb(
         }
     }
 
-    # Charlson and NCI index weights (simplified, adjust as needed)
-    charlson_weights = {
-        'acute_mi': 1, 'chf': 1, 'pvd': 1, 'cvd': 1, 'dementia': 1, 'copd': 1, 'connective_tissue': 1, 'ulcers': 1, 'mild_liver_disease': 1,
-        'diabetes': 1, 'diabetes_comp': 2, 'paralysis': 2, 'renal_disease': 2, 'liver_disease': 3, 'aids': 6
-    }
-    nci_weights = {
-        'acute_mi': 1, 'chf': 1, 'pvd': 1, 'cvd': 1, 'dementia': 1, 'copd': 1, 'paralysis': 1, 'diabetes': 1, 'diabetes_comp': 1, 'renal_disease': 1, 'mild_liver_disease': 1, 'liver_disease': 1, 'ulcers': 1, 'rheum_disease': 1, 'aids': 1
-    }
-
     # Read in the SAS dataset
     claims = pd.read_sas(INFILE, encoding='utf-8')
 
@@ -220,14 +211,40 @@ def comorb(
     out = claims[[id_col]].drop_duplicates().merge(out, on=id_col, how='left').fillna({k: 0 for k in icd_map.keys()})
 
     # Calculate Charlson and NCI indices
-    out['Charlson'] = 0
-    for cond, weight in charlson_weights.items():
-        if cond in out:
-            out['Charlson'] += out[cond] * weight
-    out['NCI'] = 0
-    for cond, weight in nci_weights.items():
-        if cond in out:
-            out['NCI'] += out[cond] * weight
+    out['Charlson'] = (
+        1 * ((out['acute_mi'] == 1) | (out['history_mi'] == 1)).astype(int) +
+        1 * (out['chf'] == 1).astype(int) +
+        1 * (out['pvd'] == 1).astype(int) +
+        1 * (out['cvd'] == 1).astype(int) +
+        1 * (out['copd'] == 1).astype(int) +
+        1 * (out['dementia'] == 1).astype(int) +
+        2 * (out['paralysis'] == 1).astype(int) +
+        1 * ((out['diabetes'] == 1) & (out['diabetes_comp'] == 0)).astype(int) +
+        2 * (out['diabetes_comp'] == 1).astype(int) +
+        2 * (out['renal_disease'] == 1).astype(int) +
+        1 * ((out['mild_liver_disease'] == 1) & (out['liver_disease'] == 0)).astype(int) +
+        3 * (out['liver_disease'] == 1).astype(int) +
+        1 * (out['ulcers'] == 1).astype(int) +
+        1 * (out['rheum_disease'] == 1).astype(int) +
+        6 * (out['aids'] == 1).astype(int)
+    )
+
+    out['NCI_index'] = (
+        0.12624 * (out['acute_mi'] == 1).astype(int) +
+        0.07999 * (out['history_mi'] == 1).astype(int) +
+        0.64441 * (out['chf'] == 1).astype(int) +
+        0.26232 * (out['pvd'] == 1).astype(int) +
+        0.27868 * (out['cvd'] == 1).astype(int) +
+        0.52487 * (out['copd'] == 1).astype(int) +
+        0.72219 * (out['dementia'] == 1).astype(int) +
+        0.39882 * (out['paralysis'] == 1).astype(int) +
+        0.29408 * ((out['diabetes'] == 1) | (out['diabetes_comp'] == 1)).astype(int) +
+        0.47010 * (out['renal_disease'] == 1).astype(int) +
+        0.73803 * ((out['mild_liver_disease'] == 1) | (out['liver_disease'] == 1)).astype(int) +
+        0.07506 * (out['ulcers'] == 1).astype(int) +
+        0.21905 * (out['rheum_disease'] == 1).astype(int) +
+        0.58362 * (out['aids'] == 1).astype(int)
+    )
 
     # Sort by patient ID
     out = out.sort_values(by=id_col)
