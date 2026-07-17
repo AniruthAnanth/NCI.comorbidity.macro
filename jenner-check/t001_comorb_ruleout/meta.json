@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_comorb_ruleout",
+  "source_file": "NCI.comorbidity.macro.sas",
+  "source_blob_sha": "4c73106914cebf3da2e7d6004f5fd764447424b7",
+  "source_commit": "d80e4479cf2fb3c5e0b0b7f8692c6f1506b26646",
+  "notes": "The COMORB macro definition (byte-identical) plus a caller we wrote: three mock patients with MedPAR/Outpatient claims spanning the ICD-9/ICD-10 boundary (10/1/2015), called with RULEOUT=Y. Exercises the ruleout algorithm end to end -- patient 3's single unconfirmed outpatient AIDS-coded claim is correctly dropped while a MedPAR-confirmed cerebrovascular claim survives -- and both the Charlson and NCI index calculations."
+}

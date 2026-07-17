@@ -1,0 +1,14 @@
+{
+  "_captured_at": "2026-07-17T03:07:00Z",
+  "_captured_run_id": "r_9be1da008aa944b08a9c560cc045416b",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Wrote claims (7 rows, 7 columns).",
+    "NOTE: Wrote conditions (3 rows, 85 columns).",
+    "NOTE: Wrote comorbidities (3 rows, 82 columns).",
+    "NOTE: PROC PRINT completed: 3 observations printed, 9 variables"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}
