@@ -1,0 +1,6 @@
+
+patient_id  Charlson comorbidity score  NCI comorbidity index  Chronic Obstructive Pulmonary Disease  Peptic Ulcer Disease  Dementia
+----------  --------------------------  ---------------------  -------------------------------------  --------------------  --------
+        10                           2                0.59993                                      1                     1         0
+        11                           1                0.72219                                      0                     0         1
+

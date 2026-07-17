@@ -1,0 +1,7 @@
+{
+  "bundle": "t002_comorb_no_ruleout",
+  "source_file": "NCI.comorbidity.macro.sas",
+  "source_blob_sha": "4c73106914cebf3da2e7d6004f5fd764447424b7",
+  "source_commit": "d80e4479cf2fb3c5e0b0b7f8692c6f1506b26646",
+  "notes": "The COMORB macro definition (byte-identical) plus a caller we wrote: two mock patients with Outpatient/NCH claims, called with RULEOUT=N. Exercises the macro's non-ruleout branch, where every in-window claim counts toward a comorbidity flag with no 30-day confirmation requirement -- the code path that skips the ruleout DO block entirely."
+}

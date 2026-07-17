@@ -1,0 +1,42 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260715T062217Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA claims
+
+
+NOTE: Wrote claims (3 rows, 7 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA claims
+
+
+NOTE: Read 3 rows from claims.
+NOTE: Wrote claims (3 rows, 25 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SORT data=claims
+
+NOTE: Read 3 rows from claims.
+NOTE: Wrote claims (3 rows, 25 columns).
+NOTE: PROC SORT statement used.
+NOTE: DATA conditions
+
+
+NOTE: Read 3 rows from claims.
+NOTE: Wrote conditions (2 rows, 85 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA comorbidities
+
+
+NOTE: Read 2 rows from conditions.
+NOTE: Wrote comorbidities (2 rows, 82 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC PRINT data=comorbidities
+
+NOTE: PROC PRINT completed: 2 observations printed, 6 variables
